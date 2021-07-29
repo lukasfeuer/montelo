@@ -70,6 +70,7 @@ summary(daten)
 #daten[,1] <- as.Date(daten[,1], format = '%d.%m.%Y')
 
 codes <- names(daten)
+anyDuplicated(codes)
 
 codes
 
