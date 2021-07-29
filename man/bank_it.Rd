@@ -20,4 +20,6 @@ Helper for \code{bank_df()}.
 \details{
 ATTENTION: function index is unstable (excel vs. csv file source). Always
 check for correct behavior after usage!
+
+--> maybe convert input into a tibble with as_tibble
 }
