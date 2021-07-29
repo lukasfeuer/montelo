@@ -1,4 +1,4 @@
-#' Find Season
+#' Compare Season
 #'
 #' Gives an overview of p-values for all possible sin-curves
 #'
@@ -10,7 +10,7 @@
 #' @export
 #'
 #'
-find_season <- function(
+compare_season <- function(
   model,
   data,
   teiler
