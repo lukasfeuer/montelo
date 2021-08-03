@@ -94,7 +94,7 @@ daten <- cbind(daten, daten_adbanked, daten_adbanked_log)
 
 
 #===============================================================================:
-# 1 | Modellname | √/O/X ----
+# 1 | Modellname ----
 #===============================================================================:
 
 ## Zuweisung hilfreich, da model_painter() und mmm_plot eine Variable 'av' erwartet

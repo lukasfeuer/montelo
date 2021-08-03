@@ -23,5 +23,7 @@ Imports:
     plotly,
     purrr,
     reshape2,
+    stats,
+    tibble,
     tidyr,
     xts

@@ -29,7 +29,7 @@ seasonate_optimize <- function(x, av) {
 
     }
 
-    sin_cor <- abs(cor(av,x$Sinus_Saison))
+    sin_cor <- abs(stats::cor(av,x$Sinus_Saison))
 
     if (sin_cor > cor_max) {
 
