@@ -39,7 +39,7 @@ only
 
 -   NEW (to be added to ByndModFun)
 
-    -   
+    -   save\_adhoc()
 
 ## To Dos
 
@@ -55,6 +55,9 @@ only
     montelo:: (or not at all)
 
 -   Toy-data: montelo1
+
+-   after added example data and example model file based in it, fill in
+    all the missing examples in the functions
 
 ## Installation
 

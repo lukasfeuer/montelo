@@ -42,7 +42,7 @@ Montelo provides a loose collection of modeling functions for testing only
     * get_sig (**helper**, do not use)
     
 * NEW (to be added to ByndModFun)
-    * 
+    * save_adhoc()
 
 ## To Dos
 
