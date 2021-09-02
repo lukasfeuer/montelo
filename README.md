@@ -6,55 +6,76 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-Montelo provides a loose collection of modeling functions
+Montelo provides a loose collection of modeling functions for testing
+only
+
+-   **bank\_df** - AdBank function for data-frames
+
+-   **compare\_season** - like p\_check() for season-variable values
+
+-   **log\_suffix** - alternative to logger()
+
+-   **mmm\_plot** - plot a model-object
+
+-   **mmm\_template** - generate an empty R-Script for modeling in
+    current wd
+
+-   **p\_check** - compare de-facto p-values of a variable group after
+    addition to a given model
+
+-   Use with ad-hoc modeling
+
+    -   **dummynate** - Auto\_Dummy
+    -   **seasonate** - Season
+    -   **seasonate\_optimize** - find optimal Season
+    -   **load\_adhoc** - load ad-hoc-modeling data files
+
+-   Helper Functions
+
+    -   append\_season\_model (**helper**, do not use)
+    -   bank\_it (**helper**, do not use)
+    -   get\_season\_sig (**helper**, do not use)
+    -   get\_sig (**helper**, do not use)
+
+-   NEW (to be added to ByndModFun)
+
+    -   
 
 ## To Dos
 
 -   fix dank\_it/bank\_df –&gt; as\_tibble?
+
 -   reference packages for %&gt;% and . operators used
--   Add Script which writes down a “basic modeling” script
+
+-   write\_adhoc() to write objects compatible with ad\_hoc modelind
+    script
+
+-   mmm\_template: maybe rewrite for ByndModFun users: remove montelo
+    from require; reference functions with ByndModFun:: instead of
+    montelo:: (or not at all)
+
+-   Toy-data: montelo1
 
 ## Installation
 
-You can install the released version of montelo from
-[CRAN](https://CRAN.R-project.org) with:
+Montelo is a private package. You can install the released version of
+montelo from github with:
 
 ``` r
-install.packages("montelo")
+library(devtools)
+install_github("lukasfeuer/montelo", auth_token = github_pat(quiet = TRUE) )
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+This requires the PAT stored in the environment. Add or edith the PAT
+with:
 
 ``` r
-library(montelo)
-## basic example code
+library(devtools)
+usethis::edit_r_environ()
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+paste:
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+GITHUB_PAT="actual_token_value"
 ```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/master/examples>.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.

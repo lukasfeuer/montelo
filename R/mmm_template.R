@@ -37,7 +37,8 @@ mmm_template <- function(path = NULL, filename = "mmm_template") {
                       'dygraphs',
                       'xts',
                       'readxl',
-                      'montelo'); lapply(RequiredPackages,
+                      'montelo',
+                      'ByndModFun'); lapply(RequiredPackages,
                                          require,
                                          character.only = TRUE)
 
@@ -85,9 +86,9 @@ codes
 
 
 ## Funktionalität von bank_df() immer manuell überprüfen!
-daten_adbanked <- bank_df(daten[, -c(1:154)])
+daten_adbanked <- montelo::bank_df(daten[, -c(1:154)])
 
-daten_adbanked_log <- log_suffix(daten_adbanked)
+daten_adbanked_log <- montelo::log_suffix(daten_adbanked)
 
 daten <- cbind(daten, daten_adbanked, daten_adbanked_log)
 
@@ -132,16 +133,16 @@ m1 <- lm(daten$modell_AV ~ 1
 
 
          , data = daten
-);summary(m1); model_stats(m1); mmm_plot(m1, av, time_series[[1]])
+);summary(m1); model_stats(m1); montelo::mmm_plot(m1, av, time_series[[1]])
 
-#daten$Auto_Dummy1 <- dummynate(m1)
+#daten$Auto_Dummy1 <- montelo::dummynate(m1)
 
 # preview(m1)
 
-p_check(varGroup = 'KW',
-        vergl = TRUE,
-        model = m1,
-        data = daten)
+montelo::p_check(varGroup = 'KW',
+                  vergl = TRUE,
+                  model = m1,
+                  data = daten)
 
 
 grep('KW', codes, value = TRUE)
@@ -159,10 +160,10 @@ grep('KW', codes, value = TRUE)
 
 # attr(m1$terms, 'term.labels') --> codes irgendwie danach filtern
 
-# compare_season(m1, daten, 8.304)
+# montelo::compare_season(m1, daten, 8.304)
 
 ## Set Season for ad-hoc modeling
-# daten$Sinus_Saison <- seasonate(daten, av, 45)
+# daten$Sinus_Saison <- montelo::seasonate(daten, av, 45)
 
 # show_sd(m1)
 
