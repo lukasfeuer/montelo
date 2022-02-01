@@ -6,51 +6,53 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
+Hallo Lukas
+
 Montelo provides a loose collection of modeling functions for testing
 only
 
--   **bank\_df** - AdBank function for data-frames
+-   **bank_df** - AdBank function for data-frames
 
--   **compare\_season** - like p\_check() for season-variable values
+-   **compare_season** - like p_check() for season-variable values
 
--   **log\_suffix** - alternative to logger()
+-   **log_suffix** - alternative to logger()
 
--   **mmm\_plot** - plot a model-object
+-   **mmm_plot** - plot a model-object
 
--   **mmm\_template** - generate an empty R-Script for modeling in
+-   **mmm_template** - generate an empty R-Script for modeling in
     current wd
 
--   **p\_check** - compare de-facto p-values of a variable group after
+-   **p_check** - compare de-facto p-values of a variable group after
     addition to a given model
 
 -   Use with ad-hoc modeling
 
-    -   **dummynate** - Auto\_Dummy
+    -   **dummynate** - Auto_Dummy
     -   **seasonate** - Season
-    -   **seasonate\_optimize** - find optimal Season
-    -   **load\_adhoc** - load ad-hoc-modeling data files
+    -   **seasonate_optimize** - find optimal Season
+    -   **load_adhoc** - load ad-hoc-modeling data files
 
 -   Helper Functions
 
-    -   append\_season\_model (**helper**, do not use)
-    -   bank\_it (**helper**, do not use)
-    -   get\_season\_sig (**helper**, do not use)
-    -   get\_sig (**helper**, do not use)
+    -   append_season_model (**helper**, do not use)
+    -   bank_it (**helper**, do not use)
+    -   get_season_sig (**helper**, do not use)
+    -   get_sig (**helper**, do not use)
 
 -   NEW (to be added to ByndModFun)
 
-    -   save\_adhoc()
+    -   save_adhoc()
 
 ## To Dos
 
--   fix dank\_it/bank\_df –&gt; as\_tibble?
+-   fix dank_it/bank_df –> as_tibble?
 
--   reference packages for %&gt;% and . operators used
+-   reference packages for %>% and . operators used
 
--   write\_adhoc() to write objects compatible with ad\_hoc modelind
+-   write_adhoc() to write objects compatible with ad_hoc modelind
     script
 
--   mmm\_template: maybe rewrite for ByndModFun users: remove montelo
+-   mmm_template: maybe rewrite for ByndModFun users: remove montelo
     from require; reference functions with ByndModFun:: instead of
     montelo:: (or not at all)
 
