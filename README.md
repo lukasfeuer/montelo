@@ -6,8 +6,6 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-Hallo Lukas
-
 Montelo provides a loose collection of modeling functions for testing
 only
 
