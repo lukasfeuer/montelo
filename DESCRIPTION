@@ -23,6 +23,7 @@ Imports:
     plotly,
     purrr,
     reshape2,
+    rstudioapi,
     stats,
     tibble,
     tidyr,

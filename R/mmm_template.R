@@ -2,8 +2,6 @@
 #'
 #' Generates a .R-file with the basic code structure and dependencies for MMM.
 #'
-#' Default library for model functions is montelo
-#'
 #' @param path string, optional path to save the file to, default is current wd
 #' @param filename string for the file name e.g. "myModelFile" - no file extension
 #'
@@ -19,158 +17,129 @@ mmm_template <- function(path = NULL, filename = "mmm_template") {
 
   fileConn<-file(paste0(filename, ".R"))
   writeLines(c(
-"#===============================================================================:
-# Model | Project ----
+'#===============================================================================:
+# New | Analysis ----
 #===============================================================================:
 
-# Modellzeitraum: xxxx bis xxxx
+#rm(list=ls())
 
-{
-  RequiredPackages <- c('tidyverse',
-                      'lubridate',
-                      'hexView',
-                      'tsibble',
-                      'broom',
-                      'prophet',
-                      'dplyr',
-                      'maRketingscience',
-                      'dygraphs',
-                      'xts',
-                      'readxl',
-                      'montelo',
-                      'ByndModFun'); lapply(RequiredPackages,
-                                         require,
-                                         character.only = TRUE)
+# Packages ---------------------------------------------------------------------
+required_packages <- list(
+  "data.table",
+  "tidyverse", "dtplyr", "lubridate", "readxl",
+  "ISOweek", "dygraphs",
+  "ByndModFun")
 
+invisible(lapply(required_packages,
+                 require,
+                 character.only = TRUE))
 
-  getwd()
-  path <- dirname(rstudioapi::getSourceEditorContext()$path)
-  setwd(path)
-  getwd()
+ifelse(require(destatiscleanr), require(destatiscleanr), {
+  devtools::install_github("cutterkom/destatiscleanr")
+  require(destatiscleanr)
+})
 
-  options(scipen=50)
-  #options(digits=3)
+source("02_Skripte/Modellingfunktionen.R")
 
-  #rm(list=ls())
-}
+#options(scipen = 50)
+#options(digits = 3)
 
+# Daten ---------------------------------------------------------------
 
+daten <- read_csv2("01_Daten/Modellingdaten.csv",
+                   col_types = cols(cwdate = col_date()))
 
-# Data Screening ---------------------------------------------------------------
+# Transformationen -------------------------------------------------------------
 
+setDT(daten)
 
-#daten_namen <- colnames(read_excel('../../path to data.xlsx', n_max = 1)) # --> in case, some rows should be skipped
-daten <- read_excel('path/to/data_2021_07_28.xlsx')#, skip = 53, col_names = TRUE)
-#colnames(daten) <- daten_namen
+source("02_Skripte/Transformationen.R")
 
+modellierung_start <- ISOweek::ISOweek2date("2018-W01-1")
+modellierung_ende <- ISOweek::ISOweek2date("2021-W52-1")
 
-## NAs in Data
-length(which(is.na(daten) == TRUE))
-
-
-summary(daten)
-
-#daten[,1] <- as.Date(daten[,1], format = '%d.%m.%Y')
-
-time_series <- daten[,1]
-summary(time_series)
+daten <- daten[between(cwdate,modellierung_start, modellierung_ende)]
 
 codes <- names(daten)
 anyDuplicated(codes)
 
 codes
 
+dygraph(as.data.table(daten[, c("cwdate", "sa_stk")])) %>%
+  dyOptions(
+    labelsUTC = TRUE,
+    fillGraph = TRUE,
+    fillAlpha = 0.1,
+    drawGrid = FALSE,
+    colors = "#216ead"
+  ) %>%
+  dyCrosshair(direction = "vertical")
 
 
-# Processing | AdBank & Log ----------------------------------------------------
+# 1 | Modell Setup -------------------------------------------------------------
+
+# load("daten_m1.RData")
+
+m1 <- lm(sa_stk ~ 1
+          #+ sin((zaehler + 0)/8.304)
+          #+ sin((zaehler + 0)/4.152)
+
+          #+ dum1
+
+          , data = daten
+);summary(m1); model_stats(m1); mmm_plot(m1)
+
+daten$dum1 <- set_dummy(m1)
+
+preview(m1)
+
+p_check(varGroup = "^e_",
+        dummy = F,
+        model = m1,
+        data = daten)
 
 
-## Funktionalität von bank_df() immer manuell überprüfen!
-daten_adbanked <- montelo::bank_df(daten[, -c(1:154)])
+# Modellexport ------------------------------------------------------------
 
-daten_adbanked_log <- montelo::log_suffix(daten_adbanked)
+## Übertragen in entsprechendes Berechnungsskript:
+## Saisons als Datenreiehen in Daten speichern (z.B.:)
+daten$saison1_m1 <- sin((daten$zaehler + 0)/8.304)
+daten$saison2_m1 <- sin((daten$zaehler + 0)/4.152)
 
-daten <- cbind(daten, daten_adbanked, daten_adbanked_log)
+#m1 <-
+#  update(m1,
+#         . ~ .
+#         + saison1_m1 + saison2_m1
+#         - sin((zaehler + 0) / 8.304)
+#         - sin((zaehler + 0) / 4.152),
+#         data = daten)
 
+modellingergebnisse <- list(
+  name = paste0("[Div]_[Produkt]_[Einheit]_", lubridate::today()),
+  ziel_var = "sa_stk",
+  model = m1,
+  data = daten,
+  pricing_var = "sa_preis",
+  base_ppt = c(
+    "sin((zaehler + 0)/8.304)",
+    "sin((zaehler + 0)/4.152)",
+    "cov_mob_google_transit_stations",
+    "e_einkaufstage",
+    "e_ferien",
+    "dum_m1"
+  ),
+  base_media = c(
+    "cov_mob_google_transit_stations",
+    "e_einkaufstage",
+    "dum_m1"
+  ),
+  base_extern = c(
+    "dum_m1"
+  )
+)
+# Schema "Modell_Zielvariable_Datum"
+save(modellingergebnisse, file = paste0("03_Ergebnisse/Modell_M1_", lubridate::today(), ".RData"))
 
-
-#===============================================================================:
-# 1 | Modellname ----
-#===============================================================================:
-
-## Zuweisung hilfreich, da model_painter() und mmm_plot eine Variable 'av' erwartet
-av <- daten$modell_AV
-
-
-dygraph(xts(x = av, order.by = time_series[[1]]))%>% # sometimes other index for time_series
-  dyOptions(labelsUTC = TRUE, fillGraph=TRUE, fillAlpha=0.1, drawGrid = FALSE, colors='#216ead') %>%
-dyRangeSelector() %>%
-  dyCrosshair(direction = 'vertical')
-
-
-
-
-'
-Altes Modeld:
- 1 + Auto_Dummy
-   +
-'
-
-
-
-### Model | Best Bet -----------------------------------------------------------
-
-
-
-
-### Model | At Work ------------------------------------------------------------
-
-#load('daten_m1.RData')
-
-m1 <- lm(daten$modell_AV ~ 1
-         #+ Sinus_Saison
-         #+ Auto_Dummy1
-
-
-         , data = daten
-);summary(m1); model_stats(m1); montelo::mmm_plot(m1, av, time_series[[1]])
-
-#daten$Auto_Dummy1 <- montelo::dummynate(m1)
-
-# preview(m1)
-
-montelo::p_check(varGroup = 'KW',
-                  vergl = TRUE,
-                  model = m1,
-                  data = daten)
-
-
-grep('KW', codes, value = TRUE)
-
-## Save model-specific data
-# save(m1, daten, file = 'daten_m1.RData')
-
-
-
-### Notes -----
-
-
-
-# Functions --------------------------------------------------------------------
-
-# attr(m1$terms, 'term.labels') --> codes irgendwie danach filtern
-
-# montelo::compare_season(m1, daten, 8.304)
-
-## Set Season for ad-hoc modeling
-# daten$Sinus_Saison <- montelo::seasonate(daten, av, 45)
-
-# show_sd(m1)
-
-# maRketingscience::preview(m1)
-
-
-
-"), fileConn)
+'), fileConn)
   close(fileConn)
 }

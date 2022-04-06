@@ -1,8 +1,9 @@
 #' Dummynate
 #'
+#' For demonstration only. DO NOT USE!
+#'
 #' Dummynate a given model (like dominate, get it?... get it?...) by setting a
-#' multi-step Dummy based on std. residuals. Imitates the behavior of the dummy
-#' function of the modeling suite by Prof. Dr. Alexander Preuss.
+#' multi-step Dummy based on std. residuals.
 #'
 #' @param model model object
 #'

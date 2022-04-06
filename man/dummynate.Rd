@@ -13,7 +13,9 @@ dummynate(model)
 vector of integers
 }
 \description{
+For demonstration only. DO NOT USE!
+}
+\details{
 Dummynate a given model (like dominate, get it?... get it?...) by setting a
-multi-step Dummy based on std. residuals. Imitates the behavior of the dummy
-function of the modeling suite by Prof. Dr. Alexander Preuss.
+multi-step Dummy based on std. residuals.
 }

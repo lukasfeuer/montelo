@@ -17,6 +17,3 @@ Generates a .R-file with a template for MMM-Modeling
 \description{
 Generates a .R-file with the basic code structure and dependencies for MMM.
 }
-\details{
-Default library for model functions is montelo
-}

@@ -4,19 +4,19 @@
 \alias{mmm_plot}
 \title{MMM Plot}
 \usage{
-mmm_plot(model, av, time_series)
+mmm_plot(model, data = NULL, index = 1)
 }
 \arguments{
-\item{model}{model object}
+\item{model}{object of class "lm" containing the results returned by the lm() model fitting function}
 
-\item{av}{AV of the model}
+\item{data}{an optional data frame (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which lm is called.}
 
-\item{time_series}{time series object for x-axis}
+\item{index}{single value of type "integer" or "character" to identify the time series in the original data for the model}
 }
 \value{
 
 }
 \description{
-Produces a time series plot to compare model prediction and actual values for
+Generates a dygraphs-plot to compare model prediction and actual values for
 a given AV. Also displays residuals in an interactive display in the viewer.
 }
