@@ -38,6 +38,7 @@ my_r_setup <- function() {
       "ggridges",
       "ggthemes",
       "glue",
+      "haven",
       "here",
       "htmltools",
       "htmlwidgets",
