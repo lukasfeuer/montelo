@@ -1,6 +1,6 @@
 Package: montelo
-Title: Functions for Media Mix Modeling
-Version: 0.0.1
+Title: Collection of misc. functions by L. Feuer
+Version: 0.0.2
 Authors@R: 
     person(given = "Lukas",
            family = "Feuer",
