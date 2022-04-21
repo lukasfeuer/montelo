@@ -30,9 +30,11 @@ my_r_setup <- function() {
       "broom",
       #"Cairo",
       "caret",
+      "corrr", # tidy correlations
       "corrplot",
       "countrycode",
       "dashboardthemes",
+      "destatiscleanr",
       "dtplyr",
       "usethis",
       "eurostat",
