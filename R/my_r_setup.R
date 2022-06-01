@@ -37,6 +37,7 @@ my_r_setup <- function() {
       "countrycode",
       "dashboardthemes",
       "destatiscleanr",
+      "devtools",
       "dtplyr",
       "usethis",
       "errorist",
@@ -128,12 +129,18 @@ my_r_setup <- function() {
 
   write_lines(list(warnings()), file = "~/log_r_setup.txt")
 
+
+  devtools::install_github("gadenbuie/rsthemes")
+  rsthemes::install_rsthemes()
+
   #rstudioapi::getThemes()
   rstudioapi::applyTheme("One Dark {rsthemes}")
   #rstudioapi::applyTheme("Nord Polar Night Aurora {rsthemes}")
   #rstudioapi::applyTheme("Night Owl {rsthemes}")
   #rstudioapi::applyTheme("Material {rsthemes}")
   #rstudioapi::applyTheme("Material Ocean {rsthemes} ")
+
+
 
   rstudio.prefs::use_rstudio_prefs(
     always_save_history = FALSE,
