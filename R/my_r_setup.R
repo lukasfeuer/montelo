@@ -8,8 +8,8 @@
 #'
 my_r_setup <- function() {
   utils::install.packages(
-    dependencies = TRUE,
-    type = "source",
+    #dependencies = TRUE,
+    #type = "source",
     pkgs = c(
       "tidyverse",
       "fpp3",
@@ -35,6 +35,7 @@ my_r_setup <- function() {
       "corrr", # tidy correlations
       "corrplot",
       "countrycode",
+      "crayon",
       "dashboardthemes",
       "destatiscleanr",
       "devtools",
@@ -111,6 +112,7 @@ my_r_setup <- function() {
       #"tensorflow",
       #"tesseract",
       "testthat",
+      "thematic",
       "timevis",
       #"tinytex",
       "usethis",
@@ -127,7 +129,7 @@ my_r_setup <- function() {
     )
   )
 
-  write_lines(list(warnings()), file = "~/log_r_setup.txt")
+  readr::write_lines(list(warnings()), file = "~/log_r_setup.txt")
 
 
   devtools::install_github("gadenbuie/rsthemes")
