@@ -1,3 +1,21 @@
+#' Create a .Rprofile file
+#'
+#' Creates a .Rprofile file in the chosen directory
+#'
+#' @param path file path in which to create the file (defaults to current directory)
+#' @param filename placeholder to prevent the .Rprofile from becoming active right away. Needs to be removed (filename = '.Rprofile')
+#'
+#' @export
+#'
+r_profile_template <- function(path = NULL, filename = "removethis") {
+
+  if (!is.null(path)) {
+    setwd(path)
+  }
+
+  fileConn<-file(paste0(filename, ".Rprofile"))
+  writeLines(c('
+
 # -------------------------------------------------------------------------.
 # R Profile Template ----
 #
@@ -8,18 +26,26 @@
 
 # A warm welcome
 message(
-  "Moin, Lukas!
+  (crayon::magenta(crayon::bold("\nMoin, Lukas! "))),
+
+  crayon::silver(crayon::italic("
 
 Here is your routine:
-  • Check for updates: utils::update.packages(ask = FALSE)
-  • Visit tidyverse.org/blog/
-  • Consider revisting some chapters from
+  * Check for updates: utils::update.packages(ask = FALSE)
+  * Visit tidyverse.org/blog/
+  * Consider revisting some chapters from
     - R4DS
     - Efficient R-Programming
     - Forecasting - Principles and Practice
     - Statistical Rethinking
 
-Have a great day!"
+Custom functions available:
+  * ", crayon::bold("transfer()"), "copy to clipboard
+  * ", crayon::bold("v()"), "for view
+  * ", crayon::bold("euro()"), "format and suffix for number output
+"),
+
+crayon::bold(crayon::magenta("\nHave a great day!\n")))
 )
 
 if (interactive()) {
@@ -112,3 +138,8 @@ local({
 .env$v = utils::View
 
 attach(.env)
+
+
+'), fileConn)
+close(fileConn)
+}

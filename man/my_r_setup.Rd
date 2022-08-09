@@ -6,9 +6,6 @@
 \usage{
 my_r_setup()
 }
-\value{
-
-}
 \description{
 Installs preferred packages and sets a RStudio Theme
 }

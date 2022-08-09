@@ -7,7 +7,6 @@
 #' @param data an optional data frame (or object coercible by as.data.frame to a data frame) containing the variables in the model. If not found in data, the variables are taken from environment(formula), typically the environment from which lm is called.
 #' @param index single value of type "integer" or "character" to identify the time series in the original data for the model
 #'
-#' @return
 #' @export
 #'
 mmm_plot <- function(model, data = NULL, index = 1) {

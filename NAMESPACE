@@ -2,7 +2,9 @@
 
 export(dummynate)
 export(log_suffix)
+export(map_geocode)
 export(mmm_plot)
 export(mmm_template)
 export(my_r_setup)
+export(r_profile_template)
 export(seasonate_optimize)

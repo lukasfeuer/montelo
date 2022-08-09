@@ -13,9 +13,6 @@ mmm_plot(model, data = NULL, index = 1)
 
 \item{index}{single value of type "integer" or "character" to identify the time series in the original data for the model}
 }
-\value{
-
-}
 \description{
 Generates a dygraphs-plot to compare model prediction and actual values for
 a given AV. Also displays residuals in an interactive display in the viewer.

@@ -3,7 +3,7 @@
 #' Installs preferred packages and sets a RStudio Theme
 #'
 #' @author Lukas Feuer
-#' @return
+#'
 #' @export
 #'
 my_r_setup <- function() {
